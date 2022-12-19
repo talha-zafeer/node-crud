@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html>
+  <%- include('./partials/head.ejs') %>
+  <body>
+    <%- include('./partials/nav.ejs') %>
+
+    <div class="create-blog content">
+      <form>
+        <label for="title">Blog title:</label>
+        <input
+          value="<%= blog.title %>"
+          type="text"
+          id="title"
+          name="title"
+          required
+        />
+        <label for="snippet">Blog Snippet</label>
+        <input
+          value="<%= blog.snippet %>"
+          type="text"
+          id="snippet"
+          name="snippet"
+          required
+        />
+        <label for="body">Blog Body: </label>
+        <textarea id="body" name="body" required><%= blog.body %></textarea>
+        <button type="submit">Update</button>
+      </form>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const title = form.title.value;
+        const snippet = form.snippet.value;
+        const body = form.body.value;
+        try {
+          const result = await fetch("/blogs/edit/<%= blog._id %>", {
+            method: "PUT",
+            body: JSON.stringify({ title, snippet, body }),
+            headers: { "Content-Type": "application/json" },
+          });
+          window.location.href = "/blogs/<%= blog._id %>";
+          console.log("req fired");
+        } catch (e) {
+          console.log(e);
+        }
+      });
+    </script>
+  </body>
+</html>
