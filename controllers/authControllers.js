@@ -31,20 +31,20 @@ const createToken = (id) => {
   return jwt.sign({ id }, "theSecret_Signature", { expiresIn: maxAge });
 };
 
-const signup_get = (request, response) => {
+const signUp = (request, response) => {
   response.render("signup", { title: "Sign Up" });
 };
 
-const login_get = (request, response) => {
+const logIn = (request, response) => {
   response.render("login", { title: "Log In" });
 };
 
-const logout_get = (request, response) => {
+const logOut = (request, response) => {
   response.cookie("jwt", "", { maxAge: 1 });
   response.redirect("/login");
 };
 
-const signup_post = async (request, response) => {
+const registerUser = async (request, response) => {
   const { email, password } = request.body;
   try {
     const user = await User.create({ email, password });
@@ -57,7 +57,7 @@ const signup_post = async (request, response) => {
   }
 };
 
-const login_post = async (request, response) => {
+const verifyLogin = async (request, response) => {
   const { email, password } = request.body;
   try {
     const user = await User.login(email, password);
@@ -71,9 +71,9 @@ const login_post = async (request, response) => {
 };
 
 module.exports = {
-  signup_get,
-  signup_post,
-  login_get,
-  login_post,
-  logout_get,
+  signUp,
+  registerUser,
+  logIn,
+  verifyLogin,
+  logOut,
 };

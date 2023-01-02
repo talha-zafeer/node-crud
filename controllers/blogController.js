@@ -6,8 +6,8 @@ const displayBlogs = (req, res) => {
     .then((result) => {
       res.render("index", { title: "Blogs", blogs: result });
     })
-    .catch((error) => {
-      console.log(error);
+    .catch((err) => {
+      console.log("error", err);
     });
 };
 
@@ -44,7 +44,7 @@ const blogDelete = (req, res) => {
     });
 };
 
-const blogEdit = (req, res) => {
+const blogEditForm = (req, res) => {
   const id = req.params.id;
   Blog.findById(id)
     .then((result) => {
@@ -82,5 +82,5 @@ module.exports = {
   blogDetails,
   createBlog,
   editBlog,
-  blogEdit,
+  blogEditForm,
 };

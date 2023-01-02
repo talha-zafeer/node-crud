@@ -7,7 +7,7 @@ router.get("/", blogController.displayBlogs);
 
 router.get("/create", blogController.blogForm);
 
-router.get("/edit/:id", blogController.blogEdit);
+router.get("/edit/:id", blogController.blogEditForm);
 
 router.post("/", blogController.createBlog);
 
